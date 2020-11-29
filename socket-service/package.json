@@ -1,0 +1,32 @@
+{
+  "name": "socket-io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "prod": "cp .env.prod .env && node server.js",
+    "dev": "cp .env.dev .env && nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/common": "^7.5.1",
+    "@nestjs/core": "^7.5.1",
+    "@nestjs/typeorm": "^7.1.4",
+    "axios": "^0.21.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.20",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.6.3",
+    "socket.io": "3.0.1",
+    "socket.io-client": "^3.0.3",
+    "typeorm": "^0.2.29"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "nodemon": "^2.0.6"
+  }
+}

@@ -1,0 +1,56 @@
+version: "3"
+services:
+  socket-io:
+    container_name: socket-io
+    image: socket-io
+    command: npm run prod
+    restart: always
+    build: ./socket-service
+    working_dir: /app
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "1234:1234"
+  chat-service:
+    container_name: chat-service
+    image: chat-service
+    command: npm run start:dev
+    restart: always
+    build: ./chat-service
+    # nginx
+    working_dir: /app
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "1235:1235"
+    networks:
+      - public-network
+      - app-network
+    links:
+      - db
+  db:
+    image: mysql:5.7
+    volumes:
+      - "./data:/var/lib/mysql"
+    ports:
+    - "3309:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: chat-db
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
+    networks:
+      - db-network
+volumes:
+  db_data:
+networks:
+  app-network:
+    driver: bridge
+  db-network:
+    driver: bridge
+  public-network:
+    driver: bridge

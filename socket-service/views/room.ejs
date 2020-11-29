@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chat App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js" integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ==" crossorigin="anonymous"></script>
+    <script>
+      const roomName = "<%= roomName %>";
+      const baseUrl = "<%= baseUrl %>";
+      const userId = "<%= userId %>";
+      const socketUrl = "<%= socketUrl %>";
+    </script>
+    <script defer src="script.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      function init() {
+        fetch(`${baseUrl}/api/v1/messages/${roomName}`)
+          .then((response) => response.json())
+          .then((data) => {
+            for (let i = 0; i < data.length; i++) {
+              const message = data[i].message;
+              const userName = name == data[i].userId ? name : data[i].userId;
+              const messageElement = document.createElement("div");
+              messageElement.innerText = `${userName}: ${message}`;
+              messageContainer.append(messageElement);
+              // scroll down new message
+              var container = document.getElementById("message-container");
+              container.scrollTop = container.scrollHeight;
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+      document.addEventListener("readystatechange", (event) => {
+        if (event.target.readyState === "complete") {
+          init();
+        }
+      });
+    </script>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      #container {
+        width: 100%;
+        height: 90vh;
+        display: flex;
+        justify-content: center;
+      }
+
+      #message-container {
+        width: 80%;
+        max-width: 1200px;
+        max-height: 100%;
+        overflow: auto;
+      }
+
+      #message-container div {
+        background-color: #ccc;
+        padding: 5px;
+      }
+
+      #message-container div:nth-child(2n) {
+        background-color: #fff;
+      }
+
+      #send-container {
+        position: fixed;
+        padding-bottom: 30px;
+        bottom: 0;
+        background-color: white;
+        max-width: 1200px;
+        width: 80%;
+        display: flex;
+      }
+
+      #message-input {
+        flex-grow: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="message-container"></div>
+    </div>
+    <form id="send-container">
+      <input type="text" autocomplete="off" id="message-input" />
+      <button type="submit" id="send-button">Send</button>
+    </form>
+  </body>
+</html>

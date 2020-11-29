@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chat App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <style>
+      h2 {
+        text-align: center;
+        font-size: 24px;
+        color: white;
+      }
+      hr {
+        margin-bottom: 30px;
+      }
+      div.container {
+        width: 960px;
+        height: 610px;
+        margin: 50px auto;
+        font-family: "Droid Serif", serif;
+        position: relative;
+      }
+      div.main {
+        width: 320px;
+        margin-top: 80px;
+        float: left;
+        padding: 10px 55px 40px;
+        background-color: black;
+        border: 15px solid white;
+        box-shadow: 0 0 10px;
+        border-radius: 2px;
+        font-size: 13px;
+      }
+      input[type="text"],
+      [type="password"] {
+        width: 97.7%;
+        height: 34px;
+        padding-left: 5px;
+        margin-bottom: 20px;
+        margin-top: 8px;
+        box-shadow: 0 0 5px #13506d;
+        border: 2px solid #13506d;
+        color: black;
+        font-size: 16px;
+      }
+      label {
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      #login {
+        width: 100%;
+        background: linear-gradient(#13506d 5%, #13506d 100%);
+        border: 1px solid #13506d;
+        font-size: 20px;
+        margin-top: 15px;
+        padding: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        color: white;
+      }
+      #login:hover {
+        background: linear-gradient(#13506d 5%, #13506d 100%);
+      }
+    </style>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main">
+        <form class="form" action="/main" method="POST">
+          <h2>Login</h2>
+          <label>Email :</label>
+          <input type="text" name="email" id="email" required />
+          <label>Password :</label>
+          <input type="password" name="password" id="password" required />
+          <input type="submit" id="login" value="Login" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
